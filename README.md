@@ -4,7 +4,7 @@ An example of a THDF is included in this repository (`trackHubDefinition.json`).
 
 ## Usage
 Copy `trackHubDefinition.json` to your target, *web-accessible* directory, and edit it according to your needs. 
-The following properties *must* be changed:
+The values of the following properties *must* be changed:
   
   - `trackHubAssociatedEmail`: your email
   
