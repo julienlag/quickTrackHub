@@ -18,7 +18,8 @@ die "No track definition JSON file provided. Cannot continue.\n" unless $trackHu
 
 my $trackDbDef = processJsonToHash($trackHubDefJson);
 
-my $dataFileList=$$trackDbDef{'dataFilesList'};
+my $dataFileList=$$trackDbDef{'dataFilesList'}."/";
+my $baseUrl=$$trackDbDef{'webPublicDir'}."/";
 
 open FILES, "$dataFileList" or die $!;
 
@@ -183,7 +184,7 @@ foreach my $genome (keys %genomes){
           $filesInOutputHub{$file}=1;
           print O "\ntrack ".join ("", @{$fileAttributes{$file}})."
 parent ".$$superTrack{'track'}."
-bigDataUrl ".$$trackDbDef{'webPublicDir'}."$file
+bigDataUrl ".$baseUrl."$file
 shortLabel ".substr(join (" ", @{$fileAttributes{$file}}), 0, 13)."...
 longLabel ".join (", ", @{$fileAttributes{$file}})."
 #viewUi on
@@ -231,7 +232,7 @@ if($#absentFilesinHub>=0){
 
 print STDERR "Track hub done.\n";
 
-my $hubUrl=$$trackDbDef{'webPublicDir'}."hub.txt";
+my $hubUrl=$baseUrl."hub.txt";
 
 print STDERR "
 SUMMARY:
