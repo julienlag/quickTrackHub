@@ -3,9 +3,19 @@
 An example of a THDF is included in this repository (`trackHubDefinition.json`).
 
 ## Usage
-  Edit `trackHubDefinition.json` according to your needs, then run the following command from within a web-accessible directory, in which the Track Hub will be created:
+Edit `trackHubDefinition.json` according to your needs, the following properties in particular:
   
-  `quickTrackHub.pl trackHubDefinition.json`
+  - `trackHubAssociatedEmail`: your email
+  
+  - `webPublicDir`: the HTTP/FTP address of your data directory where the Hub will be output
+  
+  - `dataFilesList`: the local path to the list of data files (one per line) to include in the hub
+  
+Then run the following command from within a web-accessible directory, in which the Track Hub will be created:
+
+```
+quickTrackHub.pl trackHubDefinition.json
+```
 
 
 ## Dependencies:
@@ -14,6 +24,7 @@ An example of a THDF is included in this repository (`trackHubDefinition.json`).
   
     File::Basename
     JSON
+    FindBin
     
 ### Custom module 
 (provided, must be in same directory as `quickTrackHub.pl`):
