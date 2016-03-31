@@ -1,7 +1,7 @@
 {
 	"longLabel" : "ENCODE GRAPE sample data track hub",
 	"track" : "crgGrapeSample",
-	"trackHubAssociatedEmail" : "julien.lagarde@crg.eu",
+	"trackHubAssociatedEmail" : "your.email@yourinstitution.org",
 	"webPublicDir" : "http://genome.crg.es/~jlagarde/track_hub_test_grape/",
 	"superTracks" : [
 		{
