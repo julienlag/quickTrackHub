@@ -16,7 +16,7 @@ An example of a THDF is included in this repository (`trackHubDefinition.json`).
     JSON
     
 ### Custom module 
-(provided, must be in same directory as quickTrackHub.pl):
+(provided, must be in same directory as `quickTrackHub.pl`):
   
     processJsonToHash
     
