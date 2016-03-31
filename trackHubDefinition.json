@@ -1,8 +1,8 @@
 {
-	"longLabel" : "ENCODE GRAPE sample data track hub",
-	"track" : "crgGrapeSample",
+	"longLabel" : "ENCODE GRAPE sample data track hub, user ngsXX",
+	"track" : "crgGrapeSample-ngsXX",
 	"trackHubAssociatedEmail" : "your.email@yourinstitution.org",
-	"webPublicDir" : "http://genome.crg.es/~jlagarde/track_hub_test_grape/",
+	"webPublicDir" : "http://public-docs.crg.es/NGS/ngsXX/",
 	"superTracks" : [
 		{
 			"track" : "ENCODE_GRAPE_sample",
@@ -54,7 +54,7 @@
 			}
 		}
 	],
-	"dataFilesList" : "/users/rg/jlagarde/public_html/track_hub_test_grape/dataFiles.list",
+	"dataFilesList" : "/users/ngsXX/public_docs/track_hub/dataFiles.list",
 	"dataFileNameParsingInstructions" :	{
 		"fieldSeparator" : "_",
 		"fields" : {
