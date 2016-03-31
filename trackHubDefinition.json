@@ -1,0 +1,77 @@
+{
+	"longLabel" : "ENCODE GRAPE sample data track hub",
+	"track" : "crgGrapeSample",
+	"trackHubAssociatedEmail" : "julien.lagarde@crg.eu",
+	"webPublicDir" : "http://genome.crg.es/~jlagarde/track_hub_test_grape/",
+	"superTracks" : [
+		{
+			"track" : "ENCODE_GRAPE_sample",
+			"longLabel" : "ENCODE GRAPE sample superTrack",
+			"visibility": "dense"
+		},
+		{
+			"track" : "ReadAligns",
+			"parent" : "ENCODE_GRAPE_sample",
+			"longLabel" : "Read alignments (BAMs)",
+			"visibility" : "dense",
+			"type" : "bam",
+			"fileNameMatch" : {
+				"fileExtension" : "bam"
+			},
+			"compositeDimensions" : {
+				"x" : [
+					"lifeStage",
+					"tissue"
+				],
+				"y" : [
+					"replicate"
+				]
+			}
+		},
+		{
+			"track" : "ReadSignal",
+			"parent" : "ENCODE_GRAPE_sample",
+			"longLabel" : "Read signal (BigWigs)",
+			"visibility" : "dense",
+			"type" : "bigWig",
+			"autoScale" : "on",
+			"alwaysZero" : "on",
+			"maxHeightPixels" : "128:28:11",
+			"fileNameMatch" : {
+				"fileExtension" : "bw"
+			},
+			"compositeDimensions" : {
+				"x" : [
+					"lifeStage",
+					"tissue"
+				],
+				"y" : [
+					"replicate"
+				],
+				"a" : [
+					"strand"
+				]
+			}
+		}
+	],
+	"dataFilesList" : "/users/rg/jlagarde/public_html/track_hub_test_grape/dataFiles.list",
+	"dataFileNameParsingInstructions" :	{
+		"fieldSeparator" : "_",
+		"fields" : {
+			"genome" : 0,
+			"tissue" : 1,
+			"lifeStage" : 2,
+			"replicate" : 3,
+			"strand" : 5,
+			"fileExtension" : -1
+		}
+	}
+
+
+}
+
+
+
+
+
+
