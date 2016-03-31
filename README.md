@@ -28,7 +28,7 @@ quickTrackHub.pl trackHubDefinition.json
     FindBin
     
 ### Custom module 
-(provided, must be in same directory as `quickTrackHub.pl`):
+(included in this repository, must be in same directory as `quickTrackHub.pl`):
   
     processJsonToHash
     
