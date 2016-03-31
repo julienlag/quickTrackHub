@@ -3,7 +3,8 @@
 An example of a THDF is included in this repository (`trackHubDefinition.json`).
 
 ## Usage
-Edit `trackHubDefinition.json` according to your needs, the following properties in particular:
+Copy `trackHubDefinition.json` to your target, *web-accessible* directory, and edit it according to your needs. 
+The following properties *must* be changed:
   
   - `trackHubAssociatedEmail`: your email
   
@@ -11,12 +12,12 @@ Edit `trackHubDefinition.json` according to your needs, the following properties
   
   - `dataFilesList`: the local path to the list of data files (one per line) to include in the hub
   
-Then run the following command from within a web-accessible directory, in which the Track Hub will be created:
+Then run the following command from within your target directory, in which the Track Hub will be created:
 
 ```
 quickTrackHub.pl trackHubDefinition.json
 ```
-
+(This command will work only if `quickTrackHub.pl` lies in a directory which is included in your `$PATH`)
 
 ## Dependencies:
 
