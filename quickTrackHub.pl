@@ -3,11 +3,11 @@
 ###############################################################
 ## Author: Julien Lagarde, CRG. Contact: julienlag@gmail.com ##
 ###############################################################
-
+use FindBin; # find present script
+use lib "$FindBin::Bin"; # include script's directory (where processJsonToHash.pm is)
 use strict;
 use warnings;
 use File::Basename;
-use lib ".";
 use JSON;
 use processJsonToHash;
 $|=1;
@@ -18,10 +18,7 @@ die "No track definition JSON file provided. Cannot continue.\n" unless $trackHu
 
 my $trackDbDef = processJsonToHash($trackHubDefJson);
 
-#print Dumper $trackDbDef;
-
 my $dataFileList=$$trackDbDef{'dataFilesList'};
-
 
 open FILES, "$dataFileList" or die $!;
 
@@ -30,7 +27,6 @@ my %fileAttributes=();
 #we need to get the list of genomes, as there will be one trackDb.txt file per genome
 my %genomes=();
 my $genomeField=${$$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}}{'genome'};
-#print "genome field: $genomeField\n";
 
 while (<FILES>){
   chomp;
@@ -40,17 +36,9 @@ while (<FILES>){
   @{$fileAttributes{$file}}=split($$trackDbDef{'dataFileNameParsingInstructions'}{'fieldSeparator'}, $filename);
   push(@{$fileAttributes{$file}}, $suffix); # put file extension in last array element
   $genomes{${$fileAttributes{$file}}[ $$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}{'genome'} ]}=1;
-#  print "$file:\n fn: $filename\n sf: $suffix\n ".join (" ", @fileAttributes)."\n";
-#  foreach my $attribute (keys %{$$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}}){
-#    print STDERR "$attribute\n";
-#  }
 }
 
-
-#print Dumper \%fileAttributes;
-#print Dumper \%genomes;
-
-# output "hub.txt"
+# output "hub.txt":
 open O, ">hub.txt" or die $!;
 print O "hub $$trackDbDef{'track'}
 genomesFile genomes.txt
@@ -61,7 +49,7 @@ print O "longLabel ".assignLabel($trackDbDef, 'longLabel')."\n";
 
 close O;
 
-# output "genomes.txt"
+# output "genomes.txt":
 open O, ">genomes.txt" or die $!;
 foreach my $genome (keys %genomes){
   print O "genome $genome
@@ -70,7 +58,7 @@ trackDb $genome/trackDb.txt
 ";
 }
 
-#Now output one trackDb.txt per genome
+#Now output one trackDb.txt per genome:
 
 #list of valid settings for a track, with their priorities (e.g. 'track' must be written first)
 my %stanzaSettingsPriority=(
@@ -135,7 +123,6 @@ foreach my $genome (keys %genomes){
       if(exists $$superTrack{'compositeDimensions'}){
         print O "compositeTrack on\n";
         foreach my $dimension (sort keys %{$$superTrack{'compositeDimensions'}}){
-          #print O "dim $dimension\n";
           #write "gTag" and "gTitle" for each subGroup/dimension
           print O "subGroup".$compositeDimensionToSubGroup{$dimension}." ".join("",@{${$$superTrack{'compositeDimensions'}}{$dimension}})." ".join("-",@{${$$superTrack{'compositeDimensions'}}{$dimension}});
           #write list of "mTag1a=mTitle1a"s:
@@ -146,7 +133,6 @@ foreach my $genome (keys %genomes){
             my $fileMatchBool=0;
             foreach my $filePattern (keys %{$$superTrack{'fileNameMatch'}}){
               if(${$fileAttributes{$file}}[ $$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}{$filePattern} ] eq ${$$superTrack{'fileNameMatch'}}{$filePattern}){
-                #print O "\nmatch $file\n";
                 $fileMatchBool=1;
               }
               else{ #at least one of the search pattern doesn't match, so skip the file
@@ -158,18 +144,13 @@ foreach my $genome (keys %genomes){
               my $combinedAttrs=join("",@{${$$superTrack{'compositeDimensions'}}{$dimension}});
               my @combinedmTags=();
               foreach my $attr (@{${$$superTrack{'compositeDimensions'}}{$dimension}}){
-                #print O "dim $dimension $attr\n";
                 if (defined (${$fileAttributes{$file}}[ $$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}{$attr} ])){
                   my $value=${$fileAttributes{$file}}[ $$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}{$attr} ];
-                  #print O " attr: ".$value."\n";
                   push(@combinedmTags, $value);
 
                 }
               }
-
               $mTags{$combinedAttrs}{join("",@combinedmTags)}=1;
-             # $mTitles{$combinedAttrs}{join("_", @combinedmTags)}=1;
-
             }
 
           }
@@ -179,9 +160,6 @@ foreach my $genome (keys %genomes){
             }
           }
            print O "\n";
-             #print O Dumper \%mTags;
-              #print O Dumper \%mTitles;
-
         }
         print O "dimensions";
         foreach my $dimension (sort keys %{$$superTrack{'compositeDimensions'}}){
@@ -192,9 +170,7 @@ foreach my $genome (keys %genomes){
       #now process corresponding files
       foreach my $file (keys %fileAttributes){
         my $fileMatchBool=0;
-        #print O "file: $file\n";
         foreach my $filePattern (keys %{$$superTrack{'fileNameMatch'}}){
-          #print O "pattern: $filePattern\n";
           if(${$fileAttributes{$file}}[ $$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}{$filePattern} ] eq ${$$superTrack{'fileNameMatch'}}{$filePattern}){
                 $fileMatchBool=1;
           }
@@ -228,10 +204,8 @@ longLabel ".join (", ", @{$fileAttributes{$file}})."
               my $combinedAttrs=join("",@{${$$superTrack{'compositeDimensions'}}{$dimension}});
               my @combinedmTags=();
               foreach my $attr (@{${$$superTrack{'compositeDimensions'}}{$dimension}}){
-                #print O "dim $dimension $attr\n";
                 if (defined (${$fileAttributes{$file}}[ $$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}{$attr} ])){
                   my $value=${$fileAttributes{$file}}[ $$trackDbDef{'dataFileNameParsingInstructions'}{'fields'}{$attr} ];
-                  #print O " attr: ".$value."\n";
                   push(@combinedmTags, $value);
                 }
               }
@@ -242,7 +216,6 @@ longLabel ".join (", ", @{$fileAttributes{$file}})."
         }
       }
     }
- #   print O
   close O;
 }
 
@@ -259,7 +232,6 @@ if($#absentFilesinHub>=0){
 print STDERR "Track hub done.\n";
 
 my $hubUrl=$$trackDbDef{'webPublicDir'}."hub.txt";
-#my $ucscGenomeDb= # need one value for direct load into browser
 
 print STDERR "
 SUMMARY:
