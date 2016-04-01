@@ -2,7 +2,7 @@
 	"longLabel" : "ENCODE GRAPE sample data track hub, user ngsXX",
 	"track" : "crgGrapeSample-ngsXX",
 	"trackHubAssociatedEmail" : "your.email@yourinstitution.org",
-	"webPublicDir" : "http://public-docs.crg.es/NGS/ngsXX/",
+	"webPublicDir" : "http://public-docs.crg.es/NGS/ngsXX/track_hub",
 	"superTracks" : [
 		{
 			"track" : "ENCODE_GRAPE_sample",

@@ -18,7 +18,7 @@ die "No track definition JSON file provided. Cannot continue.\n" unless $trackHu
 
 my $trackDbDef = processJsonToHash($trackHubDefJson);
 
-my $dataFileList=$$trackDbDef{'dataFilesList'}."/";
+my $dataFileList=$$trackDbDef{'dataFilesList'};
 my $baseUrl=$$trackDbDef{'webPublicDir'}."/";
 
 open FILES, "$dataFileList" or die $!;
