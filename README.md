@@ -19,7 +19,7 @@ quickTrackHub.pl trackHubDefinition.json
 ```
 (This command will work only if `quickTrackHub.pl` lies in a directory which is included in your `$PATH`)
 
-## Dependencies:
+## Perl module dependencies:
 
 ### Standard CPAN modules
   
